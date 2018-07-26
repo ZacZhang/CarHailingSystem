@@ -33,7 +33,7 @@ public class DriverLocations {
         return locations.get(curLocationId);
     }
 
-    public Location getLocation(long locationId {
+    public Location getLocation(long locationId) {
         if (!locations.containsKey(locationId)) {
             return null;
         }

@@ -6,7 +6,11 @@
 
     <groupId>com.zac</groupId>
     <artifactId>CarHailingSystem</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>location-service</module>
+    </modules>
 
 
 </project>
