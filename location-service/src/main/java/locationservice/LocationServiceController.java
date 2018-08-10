@@ -1,12 +1,8 @@
 package locationservice;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
+@RestController
 public class LocationServiceController {
 
     private final AtomicLong counter = new AtomicLong();
@@ -26,6 +23,7 @@ public class LocationServiceController {
     public ResponseEntity<Location> create(@PathVariable("id") String id,
                                            @RequestBody(required = false) Location inputLocation) {
         Location location;
+
         if (inputLocation == null) {
             location = new Location(random.nextInt(90), random.nextInt(90));
         } else {
@@ -83,7 +81,7 @@ public class LocationServiceController {
         return new ResponseEntity<>(driverLocations.getLastLocation(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/drivers/{id}/locations/{locationId}")
+    @RequestMapping(value = "/drivers/{id}/locations/{locationId}", method = RequestMethod.PUT)
     public ResponseEntity<Location> update(@RequestBody Location location,
                                            @PathVariable("id") String id,
                                            @PathVariable("locationId") String locationId) {
