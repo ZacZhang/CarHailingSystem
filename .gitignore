@@ -8,3 +8,4 @@
 out
 gen
 location-service/target
+account-service/target
