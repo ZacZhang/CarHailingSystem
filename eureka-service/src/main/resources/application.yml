@@ -10,7 +10,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
   server:
-    withTimeInMsWhenSyncEmpty: 0
+    waitTimeInMsWhenSyncEmpty: 0
 
 logging:
   level:
