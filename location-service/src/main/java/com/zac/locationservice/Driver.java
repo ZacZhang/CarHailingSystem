@@ -1,4 +1,4 @@
-package locationservice;
+package com.zac.locationservice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

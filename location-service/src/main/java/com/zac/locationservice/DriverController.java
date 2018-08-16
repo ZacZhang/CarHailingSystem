@@ -1,4 +1,4 @@
-package locationservice;
+package com.zac.locationservice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

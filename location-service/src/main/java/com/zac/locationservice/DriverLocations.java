@@ -1,4 +1,4 @@
-package locationservice;
+package com.zac.locationservice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
