@@ -1,4 +1,4 @@
-package accountservice;
+package com.zac.accountservice;
 
 import javax.persistence.*;
 

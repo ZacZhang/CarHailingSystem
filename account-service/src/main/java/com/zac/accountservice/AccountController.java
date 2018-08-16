@@ -1,4 +1,4 @@
-package accountservice;
+package com.zac.accountservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
