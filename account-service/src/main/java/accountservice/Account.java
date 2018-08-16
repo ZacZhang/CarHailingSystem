@@ -1,3 +1,5 @@
+package accountservice;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class Account {
     }
 
     public String toString() {
-        return String.format("Account[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+        return String.format("accountservice.Account[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
     }
 
     public Long getId() {
