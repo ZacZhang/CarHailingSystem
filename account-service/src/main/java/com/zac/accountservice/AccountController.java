@@ -47,6 +47,7 @@ public class AccountController {
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/find", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> findByName(@RequestParam(value = "firstName", defaultValue = "") String firstName,
                                                     @RequestParam(value = "lastName", defaultValue = "") String lastName) {
         List<Account> accounts = new ArrayList<>();
