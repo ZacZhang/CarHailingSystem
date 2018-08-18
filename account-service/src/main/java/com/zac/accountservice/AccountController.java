@@ -39,20 +39,14 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-    public ResponseEntity<List<Account>> getAll() {
+    public ResponseEntity<List<Account>> getAll(@RequestParam(value = "firstName", defaultValue = "") String firstName,
+                                                @RequestParam(value = "lastName", defaultValue = "") String lastName) {
 
         List<Account> accounts = new ArrayList<>();
-        accountRepository.findAll().iterator().forEachRemaining(accounts :: add);
 
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/accounts/find", method = RequestMethod.GET)
-    public ResponseEntity<List<Account>> findByName(@RequestParam(value = "firstName", defaultValue = "") String firstName,
-                                                    @RequestParam(value = "lastName", defaultValue = "") String lastName) {
-        List<Account> accounts = new ArrayList<>();
-
-        if ("".equals(firstName)) {
+        if ("".equals(firstName) && "".equals(lastName)) {
+            accountRepository.findAll().iterator().forEachRemaining(accounts :: add);
+        } else if ("".equals(firstName)) {
             accountRepository.findByLastName(lastName).iterator().forEachRemaining(accounts :: add);
         } else if ("".equals(lastName)) {
             accountRepository.findByFirstName(firstName).iterator().forEachRemaining(accounts :: add);
@@ -62,5 +56,4 @@ public class AccountController {
 
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
-
 }
