@@ -20,6 +20,7 @@
         <module>location-service</module>
         <module>account-service</module>
         <module>eureka-service</module>
+        <module>dispatch-service</module>
     </modules>
 
 
