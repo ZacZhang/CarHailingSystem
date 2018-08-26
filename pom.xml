@@ -21,6 +21,7 @@
         <module>account-service</module>
         <module>eureka-service</module>
         <module>dispatch-service</module>
+        <module>zuul-service</module>
     </modules>
 
 

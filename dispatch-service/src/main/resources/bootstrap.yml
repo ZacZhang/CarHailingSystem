@@ -1,2 +1,2 @@
-sping:
+spring:
   application.name: dispatch-service
