@@ -1,0 +1,23 @@
+server:
+  port: 8096
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+zuul:
+  prefix: /services
+  routes:
+    test:
+      path: /redirect/**
+      url: http://google.com
+    account:
+      path: /account/**
+      serviceId: account-service
+    dispatch:
+      path: /dispatch/**
+      serviceId: dispatch-service
+    location:
+      path: /location/**
+      serviceId: location-service
