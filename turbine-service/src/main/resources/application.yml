@@ -1,0 +1,11 @@
+server:
+  port: 8098
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+turbine:
+  appConfig: account-service, location-service, dispatch-service
+  clusterNameExpression: new String('default')
