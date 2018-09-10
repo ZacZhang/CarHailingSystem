@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public class DriverRepository extends CrudRepository<Driver, Long> {
+public interface DriverRepository extends CrudRepository<Driver, Long> {
     List<Driver> findByFirstName(String firstName);
     List<Driver> findByLastName(String lastName);
     List<Driver> findByFirstNameAndLastName(String firstName, String lastName);
