@@ -6,6 +6,14 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /
+
 turbine:
-  appConfig: account-service, location-service, dispatch-service
-  clusterNameExpression: new String('default')
+  aggregator:
+  app-config: account-service, location-service, dispatch-service
+  cluster-name-expression: new String('default')
