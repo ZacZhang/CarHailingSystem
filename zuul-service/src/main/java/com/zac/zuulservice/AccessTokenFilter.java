@@ -31,7 +31,7 @@ public class AccessTokenFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 

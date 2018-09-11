@@ -13,4 +13,8 @@ public class ZuulServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulServiceApplication.class, args);
     }
+
+    public AccessTokenFilter accessTokenFilter() {
+        return new AccessTokenFilter();
+    }
 }
