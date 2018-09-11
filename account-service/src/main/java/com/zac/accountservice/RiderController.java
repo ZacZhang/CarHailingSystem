@@ -68,6 +68,7 @@ public class RiderController {
             return new ResponseEntity<>(rider, HttpStatus.BAD_REQUEST);
         }
 
+        // keep the origin createAt time
         rider = new Rider(Long.parseLong(id),
                 inputRider.firstName,
                 inputRider.lastName,
