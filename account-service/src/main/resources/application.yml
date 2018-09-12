@@ -15,6 +15,6 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/springcloud
+    url: jdbc:postgresql://localhost:5432/carhailingdb
     data-username: root
     data-password: root
