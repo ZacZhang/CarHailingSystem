@@ -14,6 +14,5 @@ management:
       base-path: /
 
 turbine:
-  aggregator:
   app-config: account-service, location-service, dispatch-service
   cluster-name-expression: new String('default')
