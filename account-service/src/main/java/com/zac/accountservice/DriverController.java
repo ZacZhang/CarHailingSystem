@@ -53,6 +53,8 @@ public class DriverController {
         return new ResponseEntity<>(drivers, HttpStatus.OK);
     }
 
+    @HystrixCommand(fallbackMethod = "defaultDriver")
+    @RequestMapping(value = "/drivers/{id}", method = RequestMethod.GET)
     public ResponseEntity<Driver> get(@PathVariable("id") String id) {
         Driver driver = null;
         Optional<Driver> optional = driverRepository.findById(Long.parseLong(id));
