@@ -23,6 +23,7 @@
         <module>dispatch-service</module>
         <module>zuul-service</module>
         <module>turbine-service</module>
+        <module>config-server</module>
     </modules>
 
 
