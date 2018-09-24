@@ -6,26 +6,49 @@ import java.time.LocalDateTime;
 
 public class Location {
 
-    private long id;
+    private long driverId;
+    private int status;
+    private long tripId;
     private LocalDateTime timestamp;
     private double latitude;
     private double longitude;
 
     public Location() {}
 
-    public Location(double latitude, double longitude) {
+    public Location(long driverId, double latitude, double longitude, int status, long tripId) {
+        this.driverId = driverId;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.status = status;
+        this.tripId = tripId;
         this.timestamp = LocalDateTime.now();
     }
 
     @JsonProperty
-    public long getId() {
-        return id;
+    public long getDriverId() {
+        return driverId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setDriverId(long driverId) {
+        this.driverId = driverId;
+    }
+
+    @JsonProperty
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @JsonProperty
+    public long getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(long tripId) {
+        this.tripId = tripId;
     }
 
     @JsonProperty
