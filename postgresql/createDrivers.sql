@@ -9,4 +9,4 @@ CREATE TABLE Drivers (
 	created_at timestamp,
 	is_active boolean,
 	PRIMARY KEY(id)
-)
+);

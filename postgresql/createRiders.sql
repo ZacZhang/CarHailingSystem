@@ -9,4 +9,4 @@ CREATE TABLE Riders (
 	payment varchar(200),
 	created_at timestamp,
 	PRIMARY KEY(id)
-)
+);
