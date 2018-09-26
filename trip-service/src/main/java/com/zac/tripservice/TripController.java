@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.jvm.hotspot.jdi.ThreadReferenceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class TripController {
     private TripRepository tripRepository;
 
     @RequestMapping(value = "/trips", method = RequestMethod.POST)
-    public ResponseEntity<Trip> create(@RequestBody(required = true) Trip inputTrip) {
+    public ResponseEntity<Trip> create(@RequestBody() Trip inputTrip) {
 
         Trip trip = new Trip(inputTrip.driverId,
                 inputTrip.riderId,
