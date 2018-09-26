@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
+@RefreshScope
+@RestController
 public class DispatchServiceController {
 
     @Autowired
@@ -60,6 +63,8 @@ public class DispatchServiceController {
             // set the trip id to the driver's location
             location.setTripId(trip.id);
             location.setStatus(1); // 1 means pending driver acceptance
+
+            this.locationServiceFeignClient.createOrUpdate(String.valueOf(location.getDriverId()), location);
         }
     }
 
@@ -68,7 +73,7 @@ public class DispatchServiceController {
 
     // called by rider to create a new trip
     @RequestMapping(value = "/trips", method = RequestMethod.POST)
-    public ResponseEntity<Trip> requestTrip(@RequestBody(required = true) Trip inputTrip) {
+    public ResponseEntity<Trip> requestTrip(@RequestBody() Trip inputTrip) {
 
         Trip trip = this.tripServiceFeignClient.create(inputTrip);
 

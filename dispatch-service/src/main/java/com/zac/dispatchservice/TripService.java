@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TripService {
     @RequestMapping(value = "/trips", method = RequestMethod.POST, produces = "application/json")
-    Trip create(@RequestBody(required = true) Trip inputTrip);
+    Trip create(@RequestBody() Trip inputTrip);
 
     @RequestMapping(value = "/trips", method = RequestMethod.GET)
     List<Trip> getAll(@RequestParam(value = "driverId", defaultValue = "") String driverId,
@@ -16,5 +16,5 @@ public interface TripService {
     Trip get(@PathVariable("id") String id);
 
     @RequestMapping(value = "/trips/{id}", method = RequestMethod.PUT)
-    Trip update(@PathVariable("id") String id, @RequestBody(required = true) Trip inputTrip);
+    Trip update(@PathVariable("id") String id, @RequestBody() Trip inputTrip);
 }
