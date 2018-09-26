@@ -1,12 +1,15 @@
 package com.zac.locationservice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.time.LocalDateTime;
 
 public class Location {
 
-    private long id;
+    private long driverId;
+    private long tripId;
+    private int status;
     private double latitude;
     private double longitude;
     private LocalDateTime timestamp;
@@ -15,23 +18,41 @@ public class Location {
 
     }
 
-    public Location(double latitude, double longitude) {
+    public Location(long driverId, double latitude, double longitude, int status, long tripId) {
+        this.driverId = driverId;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.status = status;
+        this.tripId = tripId;
         this.timestamp = LocalDateTime.now();
     }
 
-    public String getGeohash() {
-        return GeoHashUtils.encode(latitude, longitude);
+
+    @JsonProperty
+    public long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(long driverId) {
+        this.driverId = driverId;
     }
 
     @JsonProperty
-    public long getId() {
-        return id;
+    public long getTripId() {
+        return tripId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTripId(long tripId) {
+        this.tripId = tripId;
+    }
+
+    @JsonProperty
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @JsonProperty
@@ -61,5 +82,7 @@ public class Location {
         this.timestamp = timestamp;
     }
 
-
+    public String getGeohash() {
+        return GeoHashUtils.encode(latitude, longitude);
+    }
 }
