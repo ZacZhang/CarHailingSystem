@@ -24,6 +24,8 @@
         <module>zuul-service</module>
         <module>turbine-service</module>
         <module>config-service</module>
+        <module>order-service</module>
+        <module>driver-client</module>
     </modules>
 
 
