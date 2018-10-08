@@ -22,6 +22,7 @@ public class RiderController {
                 inputRider.lastName,
                 inputRider.address,
                 inputRider.phone,
+                inputRider.email,
                 inputRider.payment);
 
         riderRepository.save(rider);
@@ -73,6 +74,7 @@ public class RiderController {
                 inputRider.lastName,
                 inputRider.address,
                 inputRider.phone,
+                inputRider.email,
                 inputRider.payment,
                 optional.get().createAt);
 

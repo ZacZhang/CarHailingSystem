@@ -21,6 +21,8 @@ public class Rider {
 
     public String phone;
 
+    public String email;
+
     public String payment;
 
     public LocalDateTime createAt;
@@ -34,6 +36,7 @@ public class Rider {
                  String lastName,
                  String address,
                  String phone,
+                 String email,
                  String payment,
                  LocalDateTime createAt) {
         this.id = id;
@@ -41,6 +44,7 @@ public class Rider {
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.email = email;
         this.payment = payment;
         this.createAt = createAt;
     }
@@ -49,17 +53,21 @@ public class Rider {
                  String lastName,
                  String address,
                  String phone,
+                 String email,
                  String payment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.email = email;
         this.payment = payment;
+        this.createAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return String.format("Rider[id=%d, firstName='%s', lastName='%s', address='%s', phone='%s', payment='%s', createdAt='%s']",
-                id, firstName, lastName, address, phone, payment, createAt);
+        return String.format("Rider[id=%d, firstName='%s', lastName='%s', address='%s', phone='%s', email='%s', " +
+                        "payment='%s', createdAt='%s']",
+                id, firstName, lastName, address, phone, email, payment, createAt);
     }
 }
