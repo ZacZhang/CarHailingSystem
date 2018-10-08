@@ -27,7 +27,11 @@ public class AccessTokenFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        return ctx.getRequest().getRequestURI().contains("dispatch");
+//        if (ctx.getRequest().getRequestURI().contains("dispatch")) {
+//         return true;
+//        }
+
+        return false;
     }
 
     @Override
