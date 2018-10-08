@@ -21,6 +21,8 @@ public class Driver {
 
     public String phone;
 
+    public String email;
+
     public Boolean isActive;
 
     public LocalDateTime createdAt;
@@ -34,6 +36,7 @@ public class Driver {
                   String lastName,
                   String address,
                   String phone,
+                  String email,
                   Boolean isActive,
                   LocalDateTime createdAt) {
         this.id = id;
@@ -41,21 +44,30 @@ public class Driver {
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.email = email;
         this.isActive = isActive;
         this.createdAt = createdAt;
     }
 
-    public Driver(String firstName, String lastName, String address, String phone, Boolean isActive) {
+    public Driver(String firstName,
+                  String lastName,
+                  String address,
+                  String phone,
+                  String email,
+                  Boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.email = email;
         this.isActive = isActive;
+        this.createdAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return String.format("Driver[id=%d, firstName='%s', lastName='%s', address='%s', phone='%s', isActive='%s', createdAt='%s']",
-                id, firstName, lastName, address, phone, isActive, createdAt);
+        return String.format("Driver[id=%d, firstName='%s', lastName='%s', address='%s', phone='%s', email='%s', " +
+                        "isActive='%s', createdAt='%s']",
+                id, firstName, lastName, address, phone, email, isActive, createdAt);
     }
 }

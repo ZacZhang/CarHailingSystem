@@ -18,10 +18,13 @@ public class DriverController {
 
     @RequestMapping(value = "/drivers", method = RequestMethod.POST)
     public ResponseEntity<Driver> create(@RequestBody(required = true) Driver inputDriver) {
-        Driver driver = new Driver(inputDriver.firstName,
+        Driver driver = new Driver(
+                inputDriver.firstName,
                 inputDriver.lastName,
                 inputDriver.address,
-                inputDriver.phone, inputDriver.isActive);
+                inputDriver.phone,
+                inputDriver.email,
+                inputDriver.isActive);
 
         driverRepository.save(driver);
 
@@ -86,11 +89,13 @@ public class DriverController {
             return new ResponseEntity<>(driver, HttpStatus.BAD_REQUEST);
         }
 
+        // keep the original createdAt time
         driver = new Driver(Long.parseLong(id),
                 inputDriver.firstName,
                 inputDriver.lastName,
                 inputDriver.address,
                 inputDriver.phone,
+                inputDriver.email,
                 inputDriver.isActive,
                 optional.get().createdAt);
 
