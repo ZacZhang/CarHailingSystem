@@ -3,7 +3,6 @@ package com.zac.locationservice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -70,17 +69,17 @@ public class LocationServiceController {
 //        return new ResponseEntity<>(locations, HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "/drivers/{id}/location}", method = RequestMethod.GET)
-    public ResponseEntity<Location> get(@PathVariable("id") String id) {
+    @RequestMapping(value = "/drivers/{id}/location", method = RequestMethod.GET)
+    public ResponseEntity<Location> get(
+            @PathVariable("id") String id
+    ) {
+        Location location = null;
 
-        Location location;
-
-        // TODO: check if driver is valid and still active
+        // TODO: check if the driver is valid and still active
 
         location = idToLocationMap.get(id);
-
         if (location == null) {
-            return new ResponseEntity<>(location, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(location, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(location, HttpStatus.OK);
