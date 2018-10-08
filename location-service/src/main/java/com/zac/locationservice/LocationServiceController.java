@@ -38,7 +38,8 @@ public class LocationServiceController {
         } else {
             // todo: check if the driver is valid and still active
 
-            location = new Location(Long.parseLong(id),
+            location = new Location(
+                    Long.parseLong(id),
                     inputLocation.getLatitude(),
                     inputLocation.getLongitude(),
                     inputLocation.getStatus(),
@@ -151,8 +152,11 @@ public class LocationServiceController {
     }
 
     // show all driver locations. Internal debugging use only
+    @RequestMapping(value = "/driverLocations", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> showAllDriverLocations() throws InterruptedException {
 
-    public ResponseEntity<List<Location>> showAllDriverLocations() {
+        // add some arbitrary delay so the server send/client receive order is natural in Zipkin
+        Thread.sleep(500);
 
         return new ResponseEntity<>(new ArrayList<>(idToLocationMap.values()), HttpStatus.OK);
     }
