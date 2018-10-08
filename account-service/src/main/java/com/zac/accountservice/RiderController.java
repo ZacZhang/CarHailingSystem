@@ -18,14 +18,20 @@ public class RiderController {
 
     @RequestMapping(value = "/riders", method = RequestMethod.POST)
     public ResponseEntity<Rider> create(@RequestBody(required = true) Rider inputRider) {
-        Rider rider = new Rider(inputRider.firstName,
+        System.out.println(111);
+        Rider rider = new Rider(
+                inputRider.firstName,
                 inputRider.lastName,
                 inputRider.address,
                 inputRider.phone,
                 inputRider.email,
                 inputRider.payment);
 
+        System.out.println(222);
+
         riderRepository.save(rider);
+
+        System.out.println(333);
 
         return new ResponseEntity<>(rider, HttpStatus.CREATED);
     }
@@ -51,6 +57,14 @@ public class RiderController {
 
     public ResponseEntity<List<Rider>> defaultRiders(String firstName, String lastName) {
         List<Rider> riders = new ArrayList<>();
+        Rider xxx = new Rider(
+                "minsun",
+                "kim",
+                "123 erb st",
+                "123-456-7890",
+                 "minsunstory@gmail.com",
+                "alipay");
+        riders.add(xxx);
         return new ResponseEntity<>(riders, HttpStatus.OK);
     }
 
@@ -68,7 +82,7 @@ public class RiderController {
             return new ResponseEntity<>(rider, HttpStatus.BAD_REQUEST);
         }
 
-        // keep the origin createAt time
+        // keep the origin createdAt time
         rider = new Rider(Long.parseLong(id),
                 inputRider.firstName,
                 inputRider.lastName,
@@ -76,7 +90,7 @@ public class RiderController {
                 inputRider.phone,
                 inputRider.email,
                 inputRider.payment,
-                optional.get().createAt);
+                optional.get().createdAt);
 
         riderRepository.save(rider);
 

@@ -7,7 +7,7 @@ public class Order {
     public long id;
     public long tripId;
     public int status;
-    public LocalDateTime createAt;
+    public LocalDateTime createdAt;
 
     public Order() {
 
@@ -21,6 +21,6 @@ public class Order {
     @Override
     public String toString() {
         return String.format("Order[id=%d, tripId='%s', status='%s', createdAt='%s']",
-                id, tripId, status, createAt);
+                id, tripId, status, createdAt);
     }
 }

@@ -101,7 +101,7 @@ public class TripController {
                 inputTrip.origin,
                 inputTrip.destination,
                 inputTrip.status,
-                optional.get().createAt);
+                optional.get().createdAt);
 
         tripRepository.save(trip);
 

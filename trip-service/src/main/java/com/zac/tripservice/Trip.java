@@ -23,9 +23,9 @@ public class Trip {
 
     public int status;
 
-    public LocalDateTime createAt;
+    public LocalDateTime createdAt;
 
-    public LocalDateTime updateAt;
+    public LocalDateTime updatedAt;
 
     public Trip() {
 
@@ -38,15 +38,15 @@ public class Trip {
                 String origin,
                 String destination,
                 int status,
-                LocalDateTime createAt) {
+                LocalDateTime createdAt) {
         this.id = id;
         this.driverId = driverId;
         this.riderId = riderId;
         this.origin = origin;
         this.destination = destination;
         this.status = status;
-        this.createAt = createAt;
-        this.updateAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.updatedAt = LocalDateTime.now();
     }
 
     // called by the create function
@@ -60,13 +60,13 @@ public class Trip {
         this.origin = origin;
         this.destination = destination;
         this.status = status;
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return String.format("Trip[id=%d,driverId='%s',riderId='%s',origin='%s',destination='%s',status='%s',updatedAt='%s',createdAt='%s]",
-                id, driverId, riderId, origin, destination, status, updateAt, createAt);
+                id, driverId, riderId, origin, destination, status, updatedAt, createdAt);
     }
 }

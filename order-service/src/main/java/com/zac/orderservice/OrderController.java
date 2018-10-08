@@ -77,7 +77,7 @@ public class OrderController {
             return new ResponseEntity<>(order, HttpStatus.BAD_REQUEST);
         }
 
-        // keep the original createAt time
+        // keep the original createdAt time
         order = new Order(Long.parseLong(id), inputOrder.tripId, inputOrder.status, optional.get().createdAt);
 
         orderRepository.save(order);

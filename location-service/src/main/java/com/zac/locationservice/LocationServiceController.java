@@ -81,9 +81,9 @@ public class LocationServiceController {
 
         if (location == null) {
             return new ResponseEntity<>(location, HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<>(location, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(location, HttpStatus.OK);
     }
 
     // given a rider's location in GeoHash format and the expiration in seconds
