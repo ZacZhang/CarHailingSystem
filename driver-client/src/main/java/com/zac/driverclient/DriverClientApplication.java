@@ -9,118 +9,98 @@ import java.util.Random;
 
 public class DriverClientApplication {
 
+    public DriverClientApplication() {
+    }
+
     public static void main(String[] args) {
-
         Logger logger = LoggerFactory.getLogger(DriverClientApplication.class);
-
         RestTemplate restTemplate = new RestTemplate();
-
         Random random = new Random();
-
         int numOfDrivers = 6;
 
-        // initialize driver locations
-        for (int driverId = 1; driverId <= numOfDrivers; driverId++) {
-            String locationUrl = DriverClientApplication.getLocationUrl(driverId);
-
-            HttpEntity<Location> request = new HttpEntity<>(
-                    new Location(driverId, getRandomLatitude(), getRandomLongitude(), 0, 0));
-            restTemplate.postForObject(locationUrl, request, Location.class);
+        int i;
+        for(i = 1; i <= numOfDrivers; ++i) {
+            String locationUrl = getLocationUrl((long)i);
+            HttpEntity<Location> request = new HttpEntity(new Location((long)i, getRandomLatitude(), getRandomLongitude(), 0, 0L));
+            restTemplate.postForObject(locationUrl, request, Location.class, new Object[0]);
         }
 
-        for (int i = 0; i < 100; i++) {
-            for (int driverId = 1; driverId <= numOfDrivers; driverId++) {
-                String locationUrl = DriverClientApplication.getLocationUrl(driverId);
+        for(i = 0; i < 100; ++i) {
+            for(int driverId = 1; driverId <= numOfDrivers; ++driverId) {
+                String locationUrl = getLocationUrl((long)driverId);
 
                 try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.sleep(5000L);
+                } catch (InterruptedException var18) {
+                    var18.printStackTrace();
                 }
 
-                // get previous location
-                Location location = restTemplate.getForObject(locationUrl, Location.class);
+                Location location = (Location)restTemplate.getForObject(locationUrl, Location.class, new Object[0]);
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-
-                location.setLatitude(latitude + DriverClientApplication.getRandomNumber(-0.01, 0.01));
-                location.setLongitude(longitude + DriverClientApplication.getRandomNumber(-0.01, 0.01));
-
-                if (location.getTripId() != 0) {
+                location.setLatitude(latitude + getRandomNumber(-0.01D, 0.01D));
+                location.setLongitude(longitude + getRandomNumber(-0.01D, 0.01D));
+                if (location.getTripId() != 0L) {
+                    HttpEntity tripRequest;
                     if (location.getStatus() == 1) {
-                        // get the trip
-                        String tripUrl = DriverClientApplication.getTripUrl(location.getTripId());
-                        Trip trip = restTemplate.getForObject(tripUrl, Trip.class);
-
-                        // accept the trip
+                        String tripUrl = getTripUrl(location.getTripId());
+                        Trip trip = (Trip)restTemplate.getForObject(tripUrl, Trip.class, new Object[0]);
                         location.setStatus(2);
-                        HttpEntity<Location> request = new HttpEntity<>(location);
-                        location = restTemplate.postForObject(locationUrl, request, Location.class);
+                        HttpEntity<Location> request = new HttpEntity(location);
+                        location = (Location)restTemplate.postForObject(locationUrl, request, Location.class, new Object[0]);
                         logger.info("accepted trip " + location.getTripId() + " and updated driver location table");
-
-                        // update trip
-                        trip.driverId = driverId;
-                        HttpEntity<Trip> tripRequest = new HttpEntity<>(trip);
-                        restTemplate.put(tripUrl, tripRequest, Trip.class);
-
+                        trip.driverId = (long)driverId;
+                        tripRequest = new HttpEntity(trip);
+                        restTemplate.put(tripUrl, tripRequest, new Object[]{Trip.class});
                         logger.info("accepted trip " + location.getTripId() + " and updated Trip table");
                     } else if (location.getStatus() == 2) {
-                        // randomly decide if the trip needs to be completed
                         int randomNumber = random.nextInt(5);
-
-                        // complete the trip with 20% of chance
                         if (randomNumber == 0) {
-                            // get the trip
-                            String tripUrl = DriverClientApplication.getTripUrl(location.getTripId());
-                            Trip trip = restTemplate.getForObject(tripUrl, Trip.class);
-
-                            // update the trip table by set the trip status to 1 (complete)
+                            String tripUrl = getTripUrl(location.getTripId());
+                            Trip trip = (Trip)restTemplate.getForObject(tripUrl, Trip.class, new Object[0]);
                             trip.status = 1;
-                            HttpEntity<Trip> tripRequest = new HttpEntity<>(trip);
-                            restTemplate.put(tripUrl, tripRequest, Trip.class);
-
+                            tripRequest = new HttpEntity(trip);
+                            restTemplate.put(tripUrl, tripRequest, new Object[]{Trip.class});
                             logger.info("completed trip " + trip.id + " and updated Trip table");
-
-                            // update the location table by wiping out tripId and status
                             location.setStatus(0);
-                            location.setTripId(0);
-                            HttpEntity<Location> request = new HttpEntity<>(location);
-                            location = restTemplate.postForObject(locationUrl, request, Location.class);
+                            location.setTripId(0L);
+                            HttpEntity<Location> request = new HttpEntity(location);
+                            location = (Location)restTemplate.postForObject(locationUrl, request, Location.class, new Object[0]);
                             logger.info("completed trip " + trip.id + " and updated driver location table");
                         }
                     }
                 } else {
-                    HttpEntity<Location> request = new HttpEntity<>(location);
-                    location = restTemplate.postForObject(locationUrl, request, Location.class);
+                    HttpEntity<Location> request = new HttpEntity(location);
+                    location = (Location)restTemplate.postForObject(locationUrl, request, Location.class, new Object[0]);
                 }
+
                 logger.info("updated driver " + driverId + " for " + i + " times");
             }
         }
+
     }
 
-    // access driver location via location service via zuul
     private static String getLocationUrl(long driverId) {
         return "http://localhost:8096/services/location/drivers/" + driverId + "/location";
     }
 
-    // access trip detail via dispatch service via zuul
     private static String getTripUrl(long tripId) {
         return "http://localhost:8096/services/dispatch/trips/" + tripId;
     }
 
     private static double getRandomNumber(double min, double max) {
-        return min + new Random().nextDouble() * (max - min);
+        return min + (new Random()).nextDouble() * (max - min);
     }
 
     private static double getRandomLatitude() {
-        double lowerLatitideLimit = -90;
-        double upperLatitudeLimit = 90;
-        return getRandomNumber(lowerLatitideLimit, upperLatitudeLimit);
+        double lowerLatitudeLimit = -90.0D;
+        double upperLatitudeLimit = 90.0D;
+        return getRandomNumber(lowerLatitudeLimit, upperLatitudeLimit);
     }
 
     private static double getRandomLongitude() {
-        double lowerLongitudeLimit = -180;
-        double upperLongitudeLimit = 180;
+        double lowerLongitudeLimit = -180.0D;
+        double upperLongitudeLimit = 180.0D;
         return getRandomNumber(lowerLongitudeLimit, upperLongitudeLimit);
     }
 }
