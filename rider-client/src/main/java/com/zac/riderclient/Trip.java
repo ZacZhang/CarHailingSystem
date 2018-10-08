@@ -20,6 +20,10 @@ public class Trip {
 
     public LocalDateTime updatedAt;
 
+    public Trip(){
+
+    }
+
     public Trip(long id,
                 long driverId,
                 long riderId,

@@ -10,18 +10,19 @@ import java.util.Random;
 public class RiderClientApplication {
 
     public static void main(String[] args) {
+
         Logger logger = LoggerFactory.getLogger(RiderClientApplication.class);
 
         RestTemplate restTemplate = new RestTemplate();
 
         Random random = new Random();
 
-        int numOfRiders = 2;
-        Rider riders[] = RiderClientApplication.createRiders(numOfRiders);
-        Trip[] trips = new Trip[numOfRiders];
+        int numRiders = 2;
+        Rider riders[] = RiderClientApplication.createRiders(numRiders);
+        Trip[] trips = new Trip[numRiders];
 
-        // initialize rider locations
-        for (int i = 0; i < numOfRiders; i++) {
+        // Initialize rider locations
+        for (int i = 0; i < numRiders; i++) {
             long riderId = riders[i].id;
             String createTripUrl = RiderClientApplication.getCreateTripUrl();
 
@@ -38,42 +39,42 @@ public class RiderClientApplication {
         }
 
         for (int count = 0; count < 100; count++) {
-            for (int i = 0; i < numOfRiders; i++) {
+            for (int i = 0; i < numRiders; i++) {
                 try {
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
                 long tripId = trips[i].id;
                 long riderId = riders[i].id;
 
                 String tripUrl = RiderClientApplication.getGetTripUrl(tripId);
                 Trip trip = restTemplate.getForObject(tripUrl, Trip.class);
 
-                // if no matched driver
-                if (trip.driverId == 0) {
+                // If no matched driver
+                if(trip.driverId == 0){
                     String checkTripUrl = RiderClientApplication.getCheckTripUrl(tripId);
                     restTemplate.postForObject(checkTripUrl, null, Trip.class);
                     logger.info("checked trip for rider " + riderId + " for " + count + " times");
-                } else {
+                }else{
                     logger.info("No action for rider " + riderId + " for " + count + " times");
                 }
             }
         }
     }
 
-    private static Rider[] createRiders(int numOfRiders) {
-        Rider[] riders = new Rider[numOfRiders];
+    private static Rider[] createRiders(int numRiders){
 
-        for (int i = 0; i < numOfRiders; i++) {
+        Rider[] riders = new Rider[numRiders];
+
+        for (int i = 0; i < numRiders; i++) {
             String createTripUrl = RiderClientApplication.getCreateRiderUrl();
 
             HttpEntity<Rider> request = new HttpEntity<>(
                     new Rider(
                             "Rider" + i,
                             "Z",
-                            "123 erb st",
+                            "193 ERB ST",
                             "123-456-7890",
                             "rider" + i + "@gmail.com",
                             "alipay"));
@@ -85,26 +86,27 @@ public class RiderClientApplication {
         return riders;
     }
 
-    private static String getLocationUrl(long driverId) {
-        return "http://localhost:8096/services/location/drivers" + driverId + "/location";
+    private static String getLocationUrl(long driverId){
+        return "http://localhost:8096/services/location/drivers/"
+                + driverId + "/location";
     }
 
-    private static String getCreateRiderUrl() {
+    private static String getCreateRiderUrl(){
         return "http://localhost:8096/services/account/riders/";
     }
 
-    // create trip via dispatch service
-    private static String getCreateTripUrl() {
-        return "http://localhost:8096/services/dispatch/trips";
+    // Create trip via dispatch service
+    private static String getCreateTripUrl(){
+        return "http://localhost:8096/services/dispatch/trips/";
     }
 
-    // check trip via dispatch service
-    private static String getCheckTripUrl(long tripId) {
+    // Check trip via dispatch service
+    private static String getCheckTripUrl(long tripId){
         return RiderClientApplication.getCreateTripUrl() + tripId + "/check";
     }
 
-    // access trip details via dispatch service
-    private static String getGetTripUrl(long tripId) {
+    // Access trip details via dispatch service
+    private static String getGetTripUrl(long tripId){
         return RiderClientApplication.getCreateTripUrl() + tripId;
     }
 
@@ -120,7 +122,7 @@ public class RiderClientApplication {
 
     private static double getRandomLongitude() {
         double lowerLongitudeLimit = -180;
-        double upperLongitudeLimt = 180;
-        return getRandomNumber(lowerLongitudeLimit, upperLongitudeLimt);
+        double upperLongitudeLimit = 180;
+        return getRandomNumber(lowerLongitudeLimit, upperLongitudeLimit);
     }
 }
